@@ -1,6 +1,5 @@
 import { Schema } from '@colyseus/schema'
 
-
 export interface IUnit extends Schema
 {
     id: number

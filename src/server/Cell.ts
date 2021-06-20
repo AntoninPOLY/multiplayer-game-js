@@ -12,8 +12,7 @@ export default class Cell extends Schema implements ICell{
     s = 0
 
     @type("number")
-    id: number
-
+    id = -1
     @type("number")
     playerId = -1
 
@@ -31,6 +30,9 @@ export default class Cell extends Schema implements ICell{
         this.id = id
     }
 
+    isSame(q: number, r: number, s: number): boolean {
+        return this.q === q && this.r === r && this.s === s
+    }
 
     public round(): Cell
     {
@@ -54,5 +56,24 @@ export default class Cell extends Schema implements ICell{
             si = -qi - ri;
         }
         return new Cell(qi, ri, si);
+    }
+
+    public static directions:Cell[] = [new Cell(1, 0, -1), new Cell(1, -1, 0), new Cell(0, -1, 1), new Cell(-1, 0, 1), new Cell(-1, 1, 0), new Cell(0, 1, -1)];
+
+
+    public add(b:Cell):Cell
+    {
+        return new Cell(this.q + b.q, this.r + b.r, this.s + b.s);
+    }
+
+    public static direction(direction:number):Cell
+    {
+        return Cell.directions[direction];
+    }
+
+
+    public neighbor(direction:number):Cell
+    {
+        return this.add(Cell.direction(direction));
     }
 }

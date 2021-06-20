@@ -1,6 +1,8 @@
 import { Schema, CollectionSchema } from '@colyseus/schema'
 import Unit from "../server/Unit";
 import Cell from "../server/Cell";
+import Board from "../server/Board";
+import Player from "../server/Player";
 
 
 export enum GameState
@@ -13,9 +15,11 @@ export enum GameState
 export interface ITicTacToeState extends Schema
 {
 
-	board: CollectionSchema<Cell>
+	board: Board
 
 	units: CollectionSchema<Unit>
+
+	players: CollectionSchema<Player>
 
 	activePlayer: number
 
@@ -24,3 +28,4 @@ export interface ITicTacToeState extends Schema
 }
 
 export default ITicTacToeState
+

@@ -3,7 +3,7 @@ import type Server from '../services/Server'
 import ITicTacToeState from "../../types/ITicTacToeState";
 import {IGameSceneData} from "../../types/scenes";
 import ICell from "../../types/ICell";
-import images from '../assets/*.png'
+import images from "../assets/*.png";
 import IUnit from "../../types/IUnit";
 import * as Honeycomb  from "honeycomb-grid";
 
@@ -48,7 +48,7 @@ export default class Game extends Phaser.Scene {
         const Grid = Honeycomb.defineGrid(Hex)
         const grid = Grid()
 
-        state.board.forEach((cellState) => {
+        state.board.cells.forEach((cellState) => {
             const tile = Hex({q: cellState.q, r: cellState.r, s: cellState.s})
 
             grid.push(tile)
@@ -70,12 +70,10 @@ export default class Game extends Phaser.Scene {
                 })
 
             //https://www.redblobgames.com/grids/hexagons/
+            if(cellState.playerId != -1) {
+                hex.fillColor = state.players[cellState.playerId]
+            }
 
-            const x = cellState.q < 0 ? cellState.q * - 1 : cellState.q
-            const z = cellState.r < 0 ? cellState.r * - 1 : cellState.r
-            const y = cellState.s < 0 ? cellState.s * - 1 : cellState.s
-            if (x == 3 || y == 3 || z == 3)
-                hex.fillColor = 0xff0000;
             this.cells.push({
                 display: hex,
                 value: cellState,
