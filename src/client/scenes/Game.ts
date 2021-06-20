@@ -69,16 +69,13 @@ export default class Game extends Phaser.Scene {
                     this.server.createUnit(cellState)
                 })
 
-
+            //https://www.redblobgames.com/grids/hexagons/
 
             const x = cellState.q < 0 ? cellState.q * - 1 : cellState.q
-            switch(x) {
-                case 3: {
-                    hex.fillColor = 0xff0000
-                    break
-                }
-
-            }
+            const z = cellState.r < 0 ? cellState.r * - 1 : cellState.r
+            const y = cellState.s < 0 ? cellState.s * - 1 : cellState.s
+            if (x == 3 || y == 3 || z == 3)
+                hex.fillColor = 0xff0000;
             this.cells.push({
                 display: hex,
                 value: cellState,
